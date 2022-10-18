@@ -1,4 +1,4 @@
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 
 import CustomButton from "../components/UI/CustomButton"
 import { questions } from "../constants/Questions";
@@ -9,12 +9,22 @@ import { questions } from "../constants/Questions";
 const LandingPage = () => {
 
 
-    let [searchParams, setSearchParams] = useSearchParams();
+    const navigate = useNavigate()
+    
+    const data = {
+        companyID: 0,
+        isContractFinished: 0, //약정 남아있는지 
+    }
+
 
     const clickHandler = (choice) => {
-        console.log("클릭")
-        searchParams.set("company", questions[0].answers[choice].companyID)
-        setSearchParams(searchParams)
+        data.companyID = choice
+
+        navigate('/second',
+            {state: 
+                {data: data, 
+                },
+        })
     }
 
     return(
